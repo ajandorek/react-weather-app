@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { currentWeather } from '../utils/weather';
+import ToggleSwitch from '@trendmicro/react-toggle-switch';
+import '@trendmicro/react-toggle-switch/dist/react-toggle-switch.css';
+import { currentWeather, toCelcius } from '../utils/weather';
 
 export default class Weather extends Component {
   constructor() {
@@ -8,6 +10,7 @@ export default class Weather extends Component {
       weatherData: null,
       apiResponse: false,
       temperature: null,
+      isCelcius: false,
     };
   }
 
@@ -30,7 +33,22 @@ export default class Weather extends Component {
     return (
       <div>
         <h1>Today's weather for {this.state.weatherData.name}</h1>
-        <h2>{this.state.temperature}</h2>
+        <div>
+          F
+          <ToggleSwitch
+            size="sm"
+            checked={this.state.isCelcius}
+            onChange={() => {
+              this.setState({ isCelcius: !this.state.isCelcius });
+            }}
+          />
+          C
+        </div>
+        <h2>
+          {this.state.isCelcius
+            ? `${toCelcius(this.state.temperature)}° C`
+            : `${this.state.temperature}° F`}
+        </h2>
       </div>
     );
   }
