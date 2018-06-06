@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+require('dotenv').config();
 
 module.exports = {
   entry: path.join(__dirname, './src/index.js'),
@@ -29,6 +30,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, './index.html'),
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        OPENWEATHER_APIKEY: JSON.stringify(process.env.OPENWEATHER_APIKEY),
+      },
     }),
   ],
   devServer: {
