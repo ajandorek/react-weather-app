@@ -1,0 +1,19 @@
+{
+  "extends": ["eslint:recommended", "airbnb", "plugin:react/recommended"],
+  "parserOptions": {
+    "ecmaVersion": 7
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  "rules": {
+    "no-plusplus": 0,
+    "no-unused-vars": 0,
+    "react/jsx-filename-extension": 0,
+    "react/no-array-index-key": 0,
+    "react/no-unused-state": 0,
+    "react/prop-types": 0
+  }
+}
