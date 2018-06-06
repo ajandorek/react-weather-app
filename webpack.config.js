@@ -1,5 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
+const webpack = require('webpack'); // eslint-disable-line no-unused-vars
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 require('dotenv').config();
 
@@ -20,6 +20,10 @@ module.exports = {
       {
         test: /\.scss$/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|svg|jpg|gif)$/,
