@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { currentWeather } from '../utils/current_weather';
+import { currentWeather } from '../utils/weather';
 
 export default class Weather extends Component {
   constructor() {
     super();
     this.state = {
-      data: null,
-      res: false,
-      temp: null,
+      weatherData: null,
+      apiResponse: false,
+      temperature: null,
     };
   }
 
@@ -18,18 +18,19 @@ export default class Weather extends Component {
   getWeather() {
     currentWeather().then(res =>
       this.setState({
-        data: res.data,
-        res: true,
-        temp: res.data.main.temp,
+        weatherData: res.data,
+        apiResponse: true,
+        temperature: res.data.main.temp,
       }));
   }
 
   render() {
-    if (this.state.res === false) return <div>Loading</div>;
+    const { apiResponse } = this.state;
+    if (apiResponse === false) return <div>Loading</div>;
     return (
       <div>
-        <h1>Today's weather for {this.state.data.name}</h1>
-        <h2>{this.state.temp}</h2>
+        <h1>Today's weather for {this.state.weatherData.name}</h1>
+        <h2>{this.state.temperature}</h2>
       </div>
     );
   }
