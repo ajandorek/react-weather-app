@@ -1,4 +1,5 @@
 import React from 'react';
+import Weather from './Weather';
 
 const App = () => (
   <div>
@@ -7,6 +8,7 @@ const App = () => (
       src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
       alt="react-logo"
     />
+    <Weather />
   </div>
 );
 
