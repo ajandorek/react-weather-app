@@ -10,18 +10,14 @@ export const getLocation = async () => {
   try {
     position = await getCurrentPosition();
   } catch (error) {
-    console.log(error);
+    throw new Error(error);
+  } finally {
+    return position; // eslint-disable-line
   }
-  return position;
 };
 
-export const currentWeather = async (lat, lon) => {
-  const url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${
-    process.env.OPENWEATHER_APIKEY
-  }&units=imperial`;
-
+export const getWeatherInformation = async url => {
   const response = await axios.get(url);
-
   return response;
 };
 
