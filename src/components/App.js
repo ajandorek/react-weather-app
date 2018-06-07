@@ -64,28 +64,8 @@ class App extends Component {
       getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
         const { data } = response;
         this.setState({
-<<<<<<< HEAD
           forecastData: data,
-          forecastResponse: data,
-=======
-          forecastData: response.data,
           forecastResponse: true,
-        });
-      });
-    }
-  }
-
-  getUVIndex() {
-    const { latitude, longitude, location } = this.state;
-    const url = `http://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${
-      process.env.OPENWEATHER_APIKEY
-    }&units=imperial`;
-    if (location) {
-      getWeatherInformation(url, latitude, longitude).then(response => {
-        this.setState({
-          uvData: response.data,
-          uvResponse: true,
->>>>>>> create UVIndex component, add button for 3 and 5 day forecast, minor styling
         });
       });
     }

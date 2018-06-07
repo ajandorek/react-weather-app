@@ -11,7 +11,15 @@ const getServiceUrl = (service, latitude, longitude) =>
 
 export const getWeatherInformation = async (service, latitude, longitude) => {
   const url = getServiceUrl(service, latitude, longitude);
-
   const response = await axios.get(url);
   return response;
+};
+
+export const uvIndexMessage = index => {
+  if (index >= 0 && index <= 6) {
+    return "The UV Index isn't too bad currently.";
+  } else if (index > 6 && index < 8) {
+    return 'Be sure to use sunscreen. The UV Index is currently High.';
+  }
+  return 'Be careful! The UV Index is currently Very High!';
 };
