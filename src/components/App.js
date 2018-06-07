@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { getLocation, getWeatherInformation } from '../utils/weather';
+import { getWeatherInformation } from '../utils/weather';
+import { getLocation } from '../utils/location';
 
 import AirQuality from './AirQuality';
 import Forecast from './Forecast';
