@@ -8,6 +8,7 @@ const ForecastDay = props => (
     <h3>
       {props.isCelcius ? `${toCelcius(props.weather.temp.day)}° C` : `${props.weather.temp.day}° F`}
     </h3>
+    <p>{props.weather.weather[0].main}</p>
     <i className={renderWeatherImg(props.weather.weather[0].icon)} />
   </div>
 );

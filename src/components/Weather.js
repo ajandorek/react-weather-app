@@ -1,5 +1,6 @@
 import React from 'react';
 import { toCelcius, renderWeatherImg } from '../utils/weather';
+import { titleCase } from '../utils/helpers';
 
 const Weather = props => {
   const { apiResponse, weatherData, temperature } = props;
@@ -8,7 +9,7 @@ const Weather = props => {
     <div>
       <h1>Today's weather for {weatherData.name}</h1>
       <h2>{props.isCelcius ? `${toCelcius(temperature)}° C` : `${temperature}° F`}</h2>
-      <h3>Current Weather: {weatherData.weather[0].description}</h3>
+      <h3>Current Weather: {titleCase(weatherData.weather[0].description)}</h3>
       <i className={renderWeatherImg(weatherData.weather[0].icon)} />
     </div>
   );
