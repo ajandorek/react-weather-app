@@ -1,15 +1,8 @@
-const getCurrentPosition = (options = {}) =>
+const getLocation = (options = {}) =>
   new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  }).catch(e => {
+    throw new Error('Unexpected response from geolocation', e);
   });
 
-export const getLocation = async () => {
-  let position;
-  try {
-    position = await getCurrentPosition();
-  } catch (error) {
-    throw new Error(error);
-  } finally {
-    return position; // eslint-disable-line
-  }
-};
+export default getLocation;
