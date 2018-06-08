@@ -80,40 +80,42 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
         <BrowserRouter>
-          <div>
-            <UnitToggle unitChange={this.handleUnitChange} checkUnit={this.state.isCelcius} />
-            <Nav />
-            <Route
-              exact
-              path="/"
-              render={() => (
-                <Weather
-                  isCelcius={this.state.isCelcius}
-                  weatherData={this.state.weatherData}
-                  apiResponse={this.state.weatherResponse}
-                  temperature={this.state.temperature}
-                />
-              )}
-            />
-            <Route
-              exact
-              path="/forecast"
-              render={() => (
-                <Forecast
-                  isCelcius={this.state.isCelcius}
-                  forecastData={this.state.forecastData}
-                  apiResponse={this.state.forecastResponse}
-                />
-              )}
-            />
-            <Route
-              path="/uvindex"
-              render={() => (
-                <UVIndex uvData={this.state.uvData} uvResponse={this.state.uvResponse} />
-              )}
-            />
+          <div className="weather-container">
+            <div className="weather-container__content">
+              <UnitToggle unitChange={this.handleUnitChange} checkUnit={this.state.isCelcius} />
+              <Nav />
+              <Route
+                exact
+                path="/"
+                render={() => (
+                  <Weather
+                    isCelcius={this.state.isCelcius}
+                    weatherData={this.state.weatherData}
+                    apiResponse={this.state.weatherResponse}
+                    temperature={this.state.temperature}
+                  />
+                )}
+              />
+              <Route
+                exact
+                path="/forecast"
+                render={() => (
+                  <Forecast
+                    isCelcius={this.state.isCelcius}
+                    forecastData={this.state.forecastData}
+                    apiResponse={this.state.forecastResponse}
+                  />
+                )}
+              />
+              <Route
+                path="/uvindex"
+                render={() => (
+                  <UVIndex uvData={this.state.uvData} uvResponse={this.state.uvResponse} />
+                )}
+              />
+            </div>
           </div>
         </BrowserRouter>
       </div>
