@@ -2,15 +2,16 @@ import React from 'react';
 import moment from 'moment';
 import { renderWeatherImg, toCelcius } from '../utils/weather.js';
 
-const ForecastDay = props => (
-  <div className="forecastday">
-    <h2>{moment.unix(props.weather.dt).format('ddd')}</h2>
-    <h3>
-      {props.isCelcius ? `${toCelcius(props.weather.temp.day)}° C` : `${props.weather.temp.day}° F`}
-    </h3>
-    <p>{props.weather.weather[0].main}</p>
-    <i className={renderWeatherImg(props.weather.weather[0].icon)} />
-  </div>
-);
+const ForecastDay = props => {
+  const { weather, isCelcius } = props;
+  return (
+    <div className="forecastday">
+      <h2>{moment.unix(weather.dt).format('ddd')}</h2>
+      <h3>{isCelcius ? `${toCelcius(weather.temp.day)}° C` : `${weather.temp.day}° F`}</h3>
+      <p>{weather.weather[0].main}</p>
+      <i className={renderWeatherImg(weather.weather[0].icon)} />
+    </div>
+  );
+};
 
 export default ForecastDay;
