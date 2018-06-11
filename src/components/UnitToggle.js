@@ -3,9 +3,9 @@ import ToggleSwitch from '@trendmicro/react-toggle-switch';
 
 const UnitToggle = ({ unitChange, checkUnit }) => (
   <div>
-      F
+    F
     <ToggleSwitch size="sm" checked={checkUnit} onChange={unitChange} />
-      C
+    C
   </div>
 );
 
