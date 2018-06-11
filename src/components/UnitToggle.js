@@ -1,12 +1,13 @@
 import React from 'react';
-import ToggleSwitch from '@trendmicro/react-toggle-switch';
 
-const UnitToggle = ({ unitChange, checkUnit }) => (
-  <div>
-    F
-    <ToggleSwitch size="sm" checked={checkUnit} onChange={unitChange} />
-    C
-  </div>
-);
+const UnitToggle = props => {
+  const { toCelcius, toFahrenheit } = props;
+  return (
+    <div>
+      <button onClick={toFahrenheit}>F°</button>
+      <button onClick={toCelcius}>C°</button>
+    </div>
+  );
+};
 
 export default UnitToggle;
