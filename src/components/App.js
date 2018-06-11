@@ -43,15 +43,13 @@ class App extends Component {
 
   getCurrentWeather() {
     const { latitude, longitude, location } = this.state;
-    const url = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${
-      process.env.OPENWEATHER_APIKEY
-    }&units=imperial`;
     if (location) {
-      getWeatherInformation(url, latitude, longitude).then(response => {
+      getWeatherInformation('weather', latitude, longitude).then(response => {
+        const { data } = response;
         this.setState({
-          weatherData: response.data,
+          weatherData: data,
           weatherResponse: true,
-          temperature: response.data.main.temp,
+          temperature: data.main.temp,
         });
       });
     }
@@ -59,22 +57,21 @@ class App extends Component {
 
   getCurrentForecast() {
     const { latitude, longitude, location } = this.state;
-    const url = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${latitude}&lon=${longitude}&appid=${
-      process.env.OPENWEATHER_APIKEY
-    }&cnt=5&units=imperial`;
     if (location) {
-      getWeatherInformation(url, latitude, longitude).then(response => {
+      getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
+        const { data } = response;
         this.setState({
-          forecastData: response.data,
-          forecastResponse: response.data,
+          forecastData: data,
+          forecastResponse: data,
         });
       });
     }
   }
 
   handleUnitChange() {
+    const { isCelcius } = this.state;
     this.setState({
-      isCelcius: !this.state.isCelcius,
+      isCelcius: !isCelcius,
     });
   }
 
