@@ -8,7 +8,7 @@ export default class Nav extends Component {
       <div>
         <Link to="/">Home</Link>
         <Link to="/forecast">Forecast</Link>
-        <Link to="pollution">Air Quality</Link>
+        <Link to="/uvindex">UV Index</Link>
       </div>
     );
   }

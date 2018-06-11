@@ -11,6 +11,7 @@ const getServiceUrl = (service, latitude, longitude) =>
 
 export const getWeatherInformation = async (service, latitude, longitude) => {
   const url = getServiceUrl(service, latitude, longitude);
+
   const response = await axios.get(url);
   return response;
 };

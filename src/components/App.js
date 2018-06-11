@@ -3,7 +3,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { getWeatherInformation } from '../utils/weather';
 import getLocation from '../utils/location';
 
-import AirQuality from './AirQuality';
+import UVIndex from './UVIndex';
 import Forecast from './Forecast';
 import Nav from './Nav';
 import UnitToggle from './UnitToggle';
@@ -21,6 +21,8 @@ class App extends Component {
       forecastData: null,
       forecastResponse: false,
       weatherResponse: false,
+      uvResponse: false,
+      uvData: null,
       temperature: null,
     };
 
@@ -37,6 +39,7 @@ class App extends Component {
         });
         this.getCurrentWeather();
         this.getCurrentForecast();
+        this.getUVIndex();
       });
     }
   }
@@ -61,8 +64,28 @@ class App extends Component {
       getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
         const { data } = response;
         this.setState({
+<<<<<<< HEAD
           forecastData: data,
           forecastResponse: data,
+=======
+          forecastData: response.data,
+          forecastResponse: true,
+        });
+      });
+    }
+  }
+
+  getUVIndex() {
+    const { latitude, longitude, location } = this.state;
+    const url = `http://api.openweathermap.org/data/2.5/uvi?lat=${latitude}&lon=${longitude}&appid=${
+      process.env.OPENWEATHER_APIKEY
+    }&units=imperial`;
+    if (location) {
+      getWeatherInformation(url, latitude, longitude).then(response => {
+        this.setState({
+          uvData: response.data,
+          uvResponse: true,
+>>>>>>> create UVIndex component, add button for 3 and 5 day forecast, minor styling
         });
       });
     }
@@ -95,6 +118,7 @@ class App extends Component {
               )}
             />
             <Route
+              exact
               path="/forecast"
               render={() => (
                 <Forecast
@@ -104,7 +128,12 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/pollution" component={AirQuality} />
+            <Route
+              path="/uvindex"
+              render={() => (
+                <UVIndex uvData={this.state.uvData} uvResponse={this.state.uvResponse} />
+              )}
+            />
           </div>
         </BrowserRouter>
       </div>
