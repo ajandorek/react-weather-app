@@ -8,25 +8,25 @@ import Forecast from './Forecast';
 import Nav from './Nav';
 import UnitToggle from './UnitToggle';
 import Weather from './Weather';
-/* eslint-disable react/no-unused-state */
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      isCelcius: false,
       location: false,
       latitude: null,
       longitude: null,
-      weatherData: null,
-      forecastData: null,
+      weatherData: {},
+      forecastData: {},
       forecastResponse: false,
       weatherResponse: false,
       uvResponse: false,
       uvData: null,
-      temperature: null,
+      temperature: {},
     };
 
-    this.handleUnitChange = this.handleUnitChange.bind(this);
+    this.changeToCelcius = this.changeToCelcius.bind(this);
+    this.changeToFahrenheit = this.changeToFahrenheit.bind(this);
   }
 
   componentDidMount() {
@@ -50,9 +50,13 @@ class App extends Component {
       getWeatherInformation('weather', latitude, longitude).then(response => {
         const { data } = response;
         this.setState({
-          weatherData: data,
           weatherResponse: true,
-          temperature: data.main.temp,
+          temperature: { type: 'FAHRENHEIT', value: data.main.temp, unit: 'F' },
+          weatherData: {
+            name: data.name,
+            description: data.weather[0].description,
+            icon: data.weather[0].icon,
+          },
         });
       });
     }
@@ -64,37 +68,46 @@ class App extends Component {
       getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
         const { data } = response;
         this.setState({
-          forecastData: data,
           forecastResponse: true,
+          forecastData: data.list,
         });
       });
     }
   }
 
-  handleUnitChange() {
-    const { isCelcius } = this.state;
-    this.setState({
-      isCelcius: !isCelcius,
-    });
-  }
-
   render() {
+    const {
+      weatherData,
+      forecastData,
+      forecastResponse,
+      weatherResponse,
+      uvResponse,
+      uvData,
+      temperature,
+    } = this.state;
     return (
       <div className="container">
         <BrowserRouter>
           <div className="weather-container">
             <div className="weather-container__content">
-              <UnitToggle unitChange={this.handleUnitChange} checkUnit={this.state.isCelcius} />
+              <UnitToggle
+                toFahrenheit={this.changeToFahrenheit}
+                toKelvin={this.changeToKelvin}
+                toCelcius={this.changeToCelcius}
+              />
               <Nav />
               <Route
                 exact
                 path="/"
                 render={() => (
                   <Weather
-                    isCelcius={this.state.isCelcius}
-                    weatherData={this.state.weatherData}
-                    apiResponse={this.state.weatherResponse}
-                    temperature={this.state.temperature}
+                    apiResponse={weatherResponse}
+                    temperature={temperature.value}
+                    name={weatherData.name}
+                    description={weatherData.description}
+                    icon={weatherData.icon}
+                    unit={temperature.unit}
+                    type={temperature.type}
                   />
                 )}
               />
@@ -103,17 +116,16 @@ class App extends Component {
                 path="/forecast"
                 render={() => (
                   <Forecast
-                    isCelcius={this.state.isCelcius}
-                    forecastData={this.state.forecastData}
-                    apiResponse={this.state.forecastResponse}
+                    forecastData={forecastData}
+                    apiResponse={forecastResponse}
+                    currentUnit={temperature.unit}
+                    currentType={temperature.type}
                   />
                 )}
               />
               <Route
                 path="/uvindex"
-                render={() => (
-                  <UVIndex uvData={this.state.uvData} uvResponse={this.state.uvResponse} />
-                )}
+                render={() => <UVIndex uvData={uvData} uvResponse={uvResponse} />}
               />
             </div>
           </div>

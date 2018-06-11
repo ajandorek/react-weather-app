@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { unix } from 'moment';
-import { renderWeatherImg, toCelcius } from '../utils/weather.js';
+import { renderWeatherImg } from '../utils/weather.js';
 
-const ForecastDay = props => {
-  const { weather, isCelcius } = props;
-  return (
-    <div className="forecastday">
-      <h2>{unix(weather.dt).format('ddd')}</h2>
-      <h3>{isCelcius ? `${toCelcius(weather.temp.day)}° C` : `${weather.temp.day}° F`}</h3>
-      <p>{weather.weather[0].main}</p>
-      <i className={renderWeatherImg(weather.weather[0].icon)} />
-    </div>
-  );
-};
-
-export default ForecastDay;
+export default class ForecastDay extends Component {
+  render() {
+    const {
+      dayOfWeek, temperature, weather, icon, unit, type,
+    } = this.props;
+    return (
+      <div className="forecastday">
+        <h2>{unix(dayOfWeek).format('ddd')}</h2>
+        <h3>
+          {type === 'CELCIUS'
+            ? `${((temperature - 32) / 1.8).toFixed(2)}° ${unit}`
+            : `${temperature}° ${unit}`}
+        </h3>
+        <p>{weather}</p>
+        <i className={renderWeatherImg(icon)} />
+      </div>
+    );
+  }
+}
