@@ -25,8 +25,7 @@ class App extends Component {
       temperature: {},
     };
 
-    this.changeToCelcius = this.changeToCelcius.bind(this);
-    this.changeToFahrenheit = this.changeToFahrenheit.bind(this);
+    this.changeUnit = this.changeUnit.bind(this);
   }
 
   componentDidMount() {
@@ -90,11 +89,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="weather-container">
             <div className="weather-container__content">
-              <UnitToggle
-                toFahrenheit={this.changeToFahrenheit}
-                toKelvin={this.changeToKelvin}
-                toCelcius={this.changeToCelcius}
-              />
+              <UnitToggle unitChange={this.changeUnit} />
               <Nav />
               <Route
                 exact

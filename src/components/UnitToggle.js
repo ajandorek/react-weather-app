@@ -1,11 +1,15 @@
 import React from 'react';
 
 const UnitToggle = props => {
-  const { toCelcius, toFahrenheit } = props;
+  const { unitChange } = props;
   return (
-    <div>
-      <button onClick={toFahrenheit}>F°</button>
-      <button onClick={toCelcius}>C°</button>
+    <div className="unitChange">
+      <button className="unitChange__button" onClick={() => unitChange('FAHRENHEIT')}>
+        F°
+      </button>
+      <button className="unitChange__button" onClick={() => unitChange('CELCIUS')}>
+        C°
+      </button>
     </div>
   );
 };
