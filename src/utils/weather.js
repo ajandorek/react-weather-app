@@ -2,13 +2,13 @@ import axios from 'axios';
 
 export const renderWeatherImg = img => `wi wi-owm-${img}`;
 
-const getServiceUrl = (service, latitude, longitude) =>
+const serviceUrl = (service, latitude, longitude) =>
   `http://api.openweathermap.org/data/2.5/${service}?lat=${latitude}&lon=${longitude}&appid=${
     process.env.OPENWEATHER_APIKEY
   }&units=imperial`;
 
 export const getWeatherInformation = async (service, latitude, longitude) => {
-  const url = getServiceUrl(service, latitude, longitude);
+  const url = serviceUrl(service, latitude, longitude);
   return axios.get(url);
 };
 
@@ -21,26 +21,19 @@ export const uvIndexMessage = index => {
   return 'Be careful! The UV Index is currently Very High!';
 };
 
-export const toFahrenheit = ({ type, value, unit }) => {
-  if (type !== 'CELCIUS') {
-    return { type, value, unit };
-  }
-  const newTemp = {
-    type: 'FAHRENHEIT',
-    value: (value * 1.8 + 32).toFixed(2),
-    unit: 'F',
-  };
-  return newTemp;
+export const TEMP_CONSTS = {
+  FAHRENHEIT: 'FAHRENHEIT',
+  CELCIUS: 'CELCIUS',
 };
 
-export const toCelcius = ({ type, value, unit }) => {
-  if (type !== 'FAHRENHEIT') {
-    return { type, value, unit };
-  }
-  const newTemp = {
-    type: 'CELCIUS',
-    value: ((value - 32) / 1.8).toFixed(2),
-    unit: 'C',
-  };
-  return newTemp;
-};
+export const toFahrenheit = ({ value, type }) => ({
+  type: TEMP_CONSTS.FAHRENHEIT,
+  value: (value * 1.8 + 32).toFixed(2),
+  unit: 'F',
+});
+
+export const toCelcius = ({ value, type }) => ({
+  type: TEMP_CONSTS.CELCIUS,
+  value: ((value - 32) / 1.8).toFixed(2),
+  unit: 'C',
+});

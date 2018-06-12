@@ -7,13 +7,13 @@ const Weather = props => {
   } = props;
   if (apiResponse === false) return <div>Loading</div>;
   return (
-    <div>
+    <div className="weather">
       <h1>Today's weather for {name}</h1>
       <h2>
-        {temperature}° {unit}
+        Currently: {temperature}° {unit}
       </h2>
       <h3 className="weather__capitalize">Current Weather: {description}</h3>
-      <i className={renderWeatherImg(icon)} />
+      <i className={`weather__icon ${renderWeatherImg(icon)}`} />
     </div>
   );
 };
