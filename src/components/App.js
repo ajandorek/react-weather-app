@@ -89,7 +89,6 @@ class App extends Component {
         <BrowserRouter>
           <div className="weather-container">
             <div className="weather-container__content">
-              <UnitToggle unitChange={this.changeUnit} />
               <Nav />
               <Route
                 exact
@@ -125,6 +124,7 @@ class App extends Component {
             </div>
           </div>
         </BrowserRouter>
+        <UnitToggle unitChange={this.changeUnit} />
       </div>
     );
   }
