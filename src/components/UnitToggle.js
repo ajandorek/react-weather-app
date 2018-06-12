@@ -2,7 +2,7 @@ import React from 'react';
 import { TEMP_CONSTS } from '../utils/weather';
 
 const UnitToggle = props => {
-  const { changeUnit } = props;
+  const { changeUnit, temperature } = props;
   return (
     <div className="unitChange">
       <button className="unitChange__button" onClick={() => changeUnit(TEMP_CONSTS.FAHRENHEIT)}>

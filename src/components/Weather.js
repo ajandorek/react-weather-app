@@ -5,7 +5,7 @@ const Weather = props => {
   const {
     apiResponse, temperature, name, description, icon, unit,
   } = props;
-  if (apiResponse === false) return <div>Loading</div>;
+  if (apiResponse === false) return <i className="loader wi wi-owm-01d" />;
   return (
     <div className="weather">
       <h1>Today's weather for {name}</h1>

@@ -13,10 +13,10 @@ export default class ForecastDay extends Component {
         <h3>
           {type === TEMP_CONSTS.FAHRENHEIT
             ? `${value}° ${unit}`
-            : `${toCelcius({ value, type }).value}° ${unit} `}
+            : `${toCelcius(value).value}° ${unit} `}
         </h3>
         <p>{weather}</p>
-        <i className={renderWeatherImg(icon)} />
+        <i className={`forecastday__icon ${renderWeatherImg(icon)}`} />
       </div>
     );
   }

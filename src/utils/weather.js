@@ -26,13 +26,13 @@ export const TEMP_CONSTS = {
   CELCIUS: 'CELCIUS',
 };
 
-export const toFahrenheit = ({ value, type }) => ({
+export const toFahrenheit = value => ({
   type: TEMP_CONSTS.FAHRENHEIT,
   value: (value * 1.8 + 32).toFixed(2),
   unit: 'F',
 });
 
-export const toCelcius = ({ value, type }) => ({
+export const toCelcius = value => ({
   type: TEMP_CONSTS.CELCIUS,
   value: ((value - 32) / 1.8).toFixed(2),
   unit: 'C',

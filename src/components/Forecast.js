@@ -47,13 +47,13 @@ export default class Forecast extends Component {
   render() {
     const { apiResponse } = this.props;
     const { daysToRender } = this.state;
-    if (apiResponse === false) return <div>Loading</div>;
+    if (apiResponse === false) return <i className="loader wi wi-owm-01d" />;
     return (
-      <div>
+      <div className="forecast">
         <button onClick={() => this.handleClick()} className="forecast__button">
-          {`Show ${daysToRender} Day`}
+          {`Showing ${daysToRender} Day`}
         </button>
-        <div className="forecast">{this.renderForecast()}</div>
+        <div className="forecast__display">{this.renderForecast()}</div>
       </div>
     );
   }
