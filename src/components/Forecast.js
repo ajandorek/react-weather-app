@@ -2,23 +2,26 @@ import React, { Component } from 'react';
 
 import ForecastDay from './ForecastDay';
 
+const FIVE_DAY_FORECAST = 5;
+const THREE_DAY_FORECAST = 3;
+
 export default class Forecast extends Component {
   constructor() {
     super();
     this.state = {
-      daysToRender: 5,
+      daysToRender: FIVE_DAY_FORECAST,
     };
   }
 
   handleClick() {
     const { daysToRender } = this.state;
-    if (daysToRender === 3) {
+    if (daysToRender === THREE_DAY_FORECAST) {
       this.setState({
-        daysToRender: 5,
+        daysToRender: FIVE_DAY_FORECAST,
       });
     } else {
       this.setState({
-        daysToRender: 3,
+        daysToRender: THREE_DAY_FORECAST,
       });
     }
   }
