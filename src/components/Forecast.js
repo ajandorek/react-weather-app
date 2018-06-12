@@ -50,7 +50,7 @@ export default class Forecast extends Component {
     if (apiResponse === false) return <div>Loading</div>;
     return (
       <div>
-        <button onClick={() => this.handleClick()}>
+        <button onClick={() => this.handleClick()} className="forecast__button">
           {daysToRender === 5 ? 'Show 5 Day' : 'Show 3 Day'}
         </button>
         <div className="forecast">{this.renderForecast()}</div>
