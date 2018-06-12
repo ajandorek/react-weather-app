@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { getWeatherInformation } from '../utils/weather';
+import { getWeatherInformation, toCelcius, toFahrenheit } from '../utils/weather';
 import getLocation from '../utils/location';
 
 import UVIndex from './UVIndex';
@@ -74,6 +74,34 @@ class App extends Component {
     }
   }
 
+  getUVIndex() {
+    const { latitude, longitude, location } = this.state;
+    if (location) {
+      getWeatherInformation('uvi', latitude, longitude).then(response => {
+        const { data } = response;
+        this.setState({
+          uvData: data,
+          uvResponse: true,
+        });
+      });
+    }
+  }
+
+  changeUnit(unit) {
+    const { temperature } = this.state;
+    if (unit === 'FAHRENHEIT') {
+      const res = toFahrenheit(temperature);
+      this.setState({
+        temperature: res,
+      });
+    } else {
+      const res = toCelcius(temperature);
+      this.setState({
+        temperature: res,
+      });
+    }
+  }
+
   render() {
     const {
       weatherData,
@@ -89,6 +117,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="weather-container">
             <div className="weather-container__content">
+              <UnitToggle unitChange={this.changeUnit} />
               <Nav />
               <Route
                 exact
@@ -124,7 +153,6 @@ class App extends Component {
             </div>
           </div>
         </BrowserRouter>
-        <UnitToggle unitChange={this.changeUnit} />
       </div>
     );
   }
