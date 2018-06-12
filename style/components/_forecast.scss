@@ -1,6 +1,7 @@
 .forecast {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .forecast__button {
@@ -11,5 +12,11 @@
   cursor: pointer;
   font-size: 20px;
   height: 30px;
+  margin: 0 auto;
   width: 150px;
+}
+
+.forecast__display {
+  display: flex;
+  justify-content: space-evenly;
 }

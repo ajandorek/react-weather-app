@@ -89,13 +89,13 @@ class App extends Component {
 
   changeUnit(unit) {
     const { temperature } = this.state;
-    if (unit === TEMP_CONSTS.CELCIUS) {
+    if (unit === TEMP_CONSTS.FAHRENHEIT && temperature.type === TEMP_CONSTS.CELCIUS) {
       this.setState({
-        temperature: toFahrenheit(temperature),
+        temperature: toFahrenheit(temperature.value),
       });
-    } else {
+    } else if (unit === TEMP_CONSTS.CELCIUS && temperature.type === TEMP_CONSTS.FAHRENHEIT) {
       this.setState({
-        temperature: toCelcius(temperature),
+        temperature: toCelcius(temperature.value),
       });
     }
   }
@@ -115,7 +115,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="weather-container">
             <div className="weather-container__content">
-              <UnitToggle changeUnit={this.changeUnit} />
+              <UnitToggle changeUnit={this.changeUnit} temperature={temperature} />
               <Nav />
               <Route
                 exact

@@ -3,9 +3,9 @@ import { uvIndexMessage } from '../utils/weather';
 
 const UVIndex = props => {
   const { uvData, uvResponse } = props;
-  if (uvResponse === false) return <div>Loading</div>;
+  if (uvResponse === false) return <i className="loader wi wi-owm-01d" />;
   return (
-    <div>
+    <div className="uvindex">
       <h1>{uvData.value}</h1>
       <p>{uvIndexMessage(uvData.value)}</p>
     </div>
