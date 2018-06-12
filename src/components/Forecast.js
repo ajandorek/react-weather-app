@@ -27,7 +27,7 @@ export default class Forecast extends Component {
   }
 
   renderForecast() {
-    const { forecastData, currentUnit, currentType } = this.props;
+    const { forecastData, currentUnit, type } = this.props;
     const { daysToRender } = this.state;
     return forecastData
       .slice(0, daysToRender)
@@ -39,7 +39,7 @@ export default class Forecast extends Component {
           weather={day.weather[0].main}
           icon={day.weather[0].icon}
           unit={currentUnit}
-          type={currentType}
+          type={type}
         />
       ));
   }
@@ -51,7 +51,7 @@ export default class Forecast extends Component {
     return (
       <div>
         <button onClick={() => this.handleClick()} className="forecast__button">
-          {daysToRender === 5 ? 'Show 5 Day' : 'Show 3 Day'}
+          {`Show ${daysToRender} Day`}
         </button>
         <div className="forecast">{this.renderForecast()}</div>
       </div>

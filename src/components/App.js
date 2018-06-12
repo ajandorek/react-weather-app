@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { getWeatherInformation, toCelcius, toFahrenheit } from '../utils/weather';
+import { getWeatherInformation, toCelcius, toFahrenheit, TEMP_CONSTS } from '../utils/weather';
 import getLocation from '../utils/location';
 
 import UVIndex from './UVIndex';
@@ -89,15 +89,13 @@ class App extends Component {
 
   changeUnit(unit) {
     const { temperature } = this.state;
-    if (unit === 'FAHRENHEIT') {
-      const res = toFahrenheit(temperature);
+    if (unit === TEMP_CONSTS.CELCIUS) {
       this.setState({
-        temperature: res,
+        temperature: toFahrenheit(temperature),
       });
     } else {
-      const res = toCelcius(temperature);
       this.setState({
-        temperature: res,
+        temperature: toCelcius(temperature),
       });
     }
   }
@@ -117,7 +115,7 @@ class App extends Component {
         <BrowserRouter>
           <div className="weather-container">
             <div className="weather-container__content">
-              <UnitToggle unitChange={this.changeUnit} />
+              <UnitToggle changeUnit={this.changeUnit} />
               <Nav />
               <Route
                 exact
@@ -142,7 +140,7 @@ class App extends Component {
                     forecastData={forecastData}
                     apiResponse={forecastResponse}
                     currentUnit={temperature.unit}
-                    currentType={temperature.type}
+                    type={temperature.type}
                   />
                 )}
               />
