@@ -24,3 +24,10 @@
   margin: 0 auto;
   width: 100%;
 }
+
+@media (max-width: 1000px) {
+  .weather-container {
+    height: 380px;
+    width: 80%;
+  }
+}

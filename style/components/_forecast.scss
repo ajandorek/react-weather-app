@@ -5,6 +5,7 @@
 }
 
 .forecast__button {
+  align-self: center;
   background-color: rgba(146, 146, 146, 0.4);
   border: none;
   border-radius: 5px;
@@ -12,11 +13,17 @@
   cursor: pointer;
   font-size: 20px;
   height: 30px;
-  margin: 0 auto;
+  margin-bottom: 7px;
   width: 150px;
 }
 
 .forecast__display {
   display: flex;
   justify-content: space-evenly;
+}
+
+@media (max-width: 1000px) {
+  .forecast__display {
+    flex-direction: column;
+  }
 }
