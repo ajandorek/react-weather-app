@@ -1,11 +1,28 @@
 .nav {
   display: flex;
   justify-content: space-around;
+  margin: 10px 0;
   text-align: center;
+}
 
-  a {
-    color: white;
-    text-align: center;
-    text-decoration: none;
+.nav__active {
+  background-color: rgba(146, 146, 146, 0.4);
+  border-radius: 5px;
+  font-weight: bolder;
+}
+
+.nav__link {
+  color: white;
+  height: 30px;
+  line-height: 30px;
+  text-decoration: none;
+  width: 75px;
+}
+
+@media (max-width: 1000px) {
+  .nav {
+    justify-content: space-between;
+    width: 90%;
+    margin: 10px auto;
   }
 }

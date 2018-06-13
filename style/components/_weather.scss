@@ -7,5 +7,38 @@
 }
 
 .weather__icon {
-  font-size: 75px;
+  font-size: 95px;
+  margin: 25px;
+}
+
+.weather__subheading {
+  font-size: 18px;
+  margin: 10px;
+}
+
+.weather__title {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+@media (min-width: 320px) and (max-width: 400px) {
+  .weather__title {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+  }
+
+  .weather__subheading {
+    font-size: 14px;
+    margin: 10px;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 568px) {
+  .weather__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px;
+  }
 }

@@ -1,9 +1,38 @@
 .forecastday {
+  background: rgba(146, 146, 146, 0.2);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  height: 200px;
+  justify-content: space-around;
   margin: 10px;
   text-align: center;
-  width: 100px;
+  width: 150px;
 }
 
 .forecastday__icon {
+  font-size: 44px;
+}
+
+.forecastday__subtitle {
+  font-size: 18px;
+}
+
+.forecastday__title {
   font-size: 30px;
+}
+
+@media (max-width: 1000px) {
+  .forecastday {
+    align-items: center;
+    flex-direction: row;
+    height: 40px;
+    justify-content: space-around;
+    margin: 5px auto;
+    width: 90%;
+  }
+
+  .forecastday__icon {
+    font-size: 30px;
+  }
 }

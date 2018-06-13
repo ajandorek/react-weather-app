@@ -9,13 +9,13 @@ export default class ForecastDay extends Component {
     } = this.props;
     return (
       <div className="forecastday">
-        <h2>{unix(dayOfWeek).format('ddd')}</h2>
-        <h3>
+        <h1 className="forecastday__title">{unix(dayOfWeek).format('ddd')}</h1>
+        <h3 className="forecastday__subtitle">
           {type === TEMP_CONSTS.FAHRENHEIT
             ? `${value}° ${unit}`
             : `${toCelcius(value).value}° ${unit} `}
         </h3>
-        <p>{weather}</p>
+        <p className="forecastday__subtitle">{weather}</p>
         <i className={`forecastday__icon ${renderWeatherImg(icon)}`} />
       </div>
     );

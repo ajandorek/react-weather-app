@@ -8,11 +8,11 @@ const Weather = props => {
   if (apiResponse === false) return <i className="loader wi wi-owm-01d" />;
   return (
     <div className="weather">
-      <h1>Today's weather for {name}</h1>
-      <h2>
+      <h1 className="weather__title">Today's weather for {name}</h1>
+      <h2 className="weather__subheading">
         Currently: {temperature}° {unit}
       </h2>
-      <h3 className="weather__capitalize">Current Weather: {description}</h3>
+      <h2 className="weather__subheading weather__capitalize">Current Weather: {description}</h2>
       <i className={`weather__icon ${renderWeatherImg(icon)}`} />
     </div>
   );

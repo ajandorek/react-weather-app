@@ -1,28 +1,20 @@
 .loader {
   animation: coloredspin 7s linear infinite;
+  color: rgba(146, 146, 146, 0.8);
   display: block;
   font-size: 100px;
-  margin: 25px auto;
+  margin: 50px auto;
   text-align: center;
 }
 
 @keyframes coloredspin {
   0% {
     transform: rotate(0deg) scale(1);
-    color: #1abc9c;
-  }
-  25% {
-    color: #2ecc71;
   }
   50% {
     transform: rotate(360deg) scale(1.5);
-    color: #3498db;
-  }
-  75% {
-    color: #9b59b6;
   }
   100% {
     transform: rotate(720deg) scale(1);
-    color: #1abc9c;
   }
 }
