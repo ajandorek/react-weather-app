@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { getWeatherInformation, toCelcius, toFahrenheit, TEMP_CONSTS } from '../utils/weather';
+import { setTimeStamp, checkTimeStamp } from '../utils/time';
 import getLocation from '../utils/location';
 
 import UVIndex from './UVIndex';
@@ -14,6 +15,7 @@ class App extends Component {
     super();
     this.state = {
       location: false,
+      infoInLocalStorage: false,
       latitude: null,
       longitude: null,
       weatherData: {},
@@ -28,6 +30,11 @@ class App extends Component {
     this.changeUnit = this.changeUnit.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({
+      infoInLocalStorage: checkTimeStamp(),
+    });
+  }
   componentDidMount() {
     if ('geolocation' in navigator) {
       getLocation().then(response => {
@@ -44,10 +51,14 @@ class App extends Component {
   }
 
   getCurrentWeather() {
-    const { latitude, longitude, location } = this.state;
-    if (location) {
+    const {
+      latitude, longitude, location, infoInLocalStorage,
+    } = this.state;
+    if (location && !infoInLocalStorage) {
       getWeatherInformation('weather', latitude, longitude).then(response => {
         const { data } = response;
+        localStorage.setItem('weather', JSON.stringify(data));
+        setTimeStamp();
         this.setState({
           weatherResponse: true,
           temperature: { type: 'FAHRENHEIT', value: data.main.temp, unit: 'F' },
@@ -58,31 +69,60 @@ class App extends Component {
           },
         });
       });
+    } else {
+      const data = JSON.parse(localStorage.getItem('weather'));
+      this.setState({
+        weatherResponse: true,
+        temperature: { type: 'FAHRENHEIT', value: data.main.temp, unit: 'F' },
+        weatherData: {
+          name: data.name,
+          description: data.weather[0].description,
+          icon: data.weather[0].icon,
+        },
+      });
     }
   }
 
   getCurrentForecast() {
-    const { latitude, longitude, location } = this.state;
-    if (location) {
+    const {
+      latitude, longitude, location, infoInLocalStorage,
+    } = this.state;
+    if (location && !infoInLocalStorage) {
       getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
         const { data } = response;
+        localStorage.setItem('forecast', JSON.stringify(data));
         this.setState({
           forecastResponse: true,
           forecastData: data.list,
         });
       });
+    } else {
+      const data = JSON.parse(localStorage.getItem('forecast'));
+      this.setState({
+        forecastResponse: true,
+        forecastData: data.list,
+      });
     }
   }
 
   getUVIndex() {
-    const { latitude, longitude, location } = this.state;
-    if (location) {
+    const {
+      latitude, longitude, location, infoInLocalStorage,
+    } = this.state;
+    if (location && !infoInLocalStorage) {
       getWeatherInformation('uvi', latitude, longitude).then(response => {
         const { data } = response;
+        localStorage.setItem('uvdata', JSON.stringify(data));
         this.setState({
           uvData: data,
           uvResponse: true,
         });
+      });
+    } else {
+      const data = JSON.parse(localStorage.getItem('uvdata'));
+      this.setState({
+        uvResponse: true,
+        uvData: data,
       });
     }
   }
