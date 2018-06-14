@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import Forecast from '../src/components/Forecast';
-import { data } from './utils/mockForecast';
+import { data } from './mock/mockForecast';
 
 it('should render Forecast component without crashing', () => {
   mount(<Forecast forecastData={data} />);

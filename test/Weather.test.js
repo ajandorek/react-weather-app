@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import Weather from '../src/components/Weather';
-import { fahrenheitTemp, celciusTemp, data } from './utils/mockWeather';
+import { fahrenheitTemp, celciusTemp, data } from './mock/mockWeather';
 
 it('renders Weather component without crashing', () => {
   shallow(<Weather />);
