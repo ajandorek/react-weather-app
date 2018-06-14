@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import ForecastDay from '../src/components/ForecastDay';
-import { data } from './utils/mockForecastDay';
+import { data } from './mock/mockForecastDay';
 
 it('should render ForecastDay component without crashing', () => {
   shallow(<ForecastDay />);
