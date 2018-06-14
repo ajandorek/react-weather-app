@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { getWeatherInformation, toCelcius, toFahrenheit, TEMP_CONSTS } from '../utils/weather';
-import { setTimeStamp, checkTimeStamp } from '../utils/time';
+import { checkTimeStamp } from '../utils/time';
 import getLocation from '../utils/location';
 
 import UVIndex from './UVIndex';
@@ -56,29 +56,18 @@ class App extends Component {
     } = this.state;
     if (location && !infoInLocalStorage) {
       getWeatherInformation('weather', latitude, longitude).then(response => {
-        const { data } = response;
-        localStorage.setItem('weather', JSON.stringify(data));
-        setTimeStamp();
         this.setState({
           weatherResponse: true,
-          temperature: { type: 'FAHRENHEIT', value: data.main.temp, unit: 'F' },
-          weatherData: {
-            name: data.name,
-            description: data.weather[0].description,
-            icon: data.weather[0].icon,
-          },
+          temperature: response.temperature,
+          weatherData: response.data,
         });
       });
     } else {
-      const data = JSON.parse(localStorage.getItem('weather'));
+      const weather = JSON.parse(localStorage.getItem('weather'));
       this.setState({
         weatherResponse: true,
-        temperature: { type: 'FAHRENHEIT', value: data.main.temp, unit: 'F' },
-        weatherData: {
-          name: data.name,
-          description: data.weather[0].description,
-          icon: data.weather[0].icon,
-        },
+        temperature: weather.temperature,
+        weatherData: weather.data,
       });
     }
   }
@@ -89,18 +78,16 @@ class App extends Component {
     } = this.state;
     if (location && !infoInLocalStorage) {
       getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
-        const { data } = response;
-        localStorage.setItem('forecast', JSON.stringify(data));
         this.setState({
           forecastResponse: true,
-          forecastData: data.list,
+          forecastData: response,
         });
       });
     } else {
       const data = JSON.parse(localStorage.getItem('forecast'));
       this.setState({
         forecastResponse: true,
-        forecastData: data.list,
+        forecastData: data,
       });
     }
   }
@@ -111,10 +98,8 @@ class App extends Component {
     } = this.state;
     if (location && !infoInLocalStorage) {
       getWeatherInformation('uvi', latitude, longitude).then(response => {
-        const { data } = response;
-        localStorage.setItem('uvdata', JSON.stringify(data));
         this.setState({
-          uvData: data,
+          uvData: response,
           uvResponse: true,
         });
       });
