@@ -1,15 +1,40 @@
 import axios from 'axios';
+import { setTimeStamp } from './time';
 
 export const renderWeatherImg = img => `wi wi-owm-${img}`;
 
 const serviceUrl = (service, latitude, longitude) =>
-  `http://api.openweathermap.org/data/2.5/${service}?lat=${latitude}&lon=${longitude}&appid=${
+  `https://api.openweathermap.org/data/2.5/${service}?lat=${latitude}&lon=${longitude}&appid=${
     process.env.OPENWEATHER_APIKEY
   }&units=imperial`;
 
 export const getWeatherInformation = async (service, latitude, longitude) => {
   const url = serviceUrl(service, latitude, longitude);
-  return axios.get(url);
+  const response = await axios.get(url);
+  setTimeStamp();
+
+  if (service === 'forecast/daily') {
+    const { data } = response;
+    localStorage.setItem('forecast', JSON.stringify(data.list));
+    return data.list;
+  } else if (service === 'weather') {
+    const { data } = response;
+    const weather = {
+      temperature: { type: 'FAHRENHEIT', value: data.main.temp, unit: 'F' },
+      data: {
+        name: data.name,
+        description: data.weather[0].description,
+        icon: data.weather[0].icon,
+      },
+    };
+    localStorage.setItem('weather', JSON.stringify(weather));
+    return weather;
+  } else if (service === 'uvi') {
+    const { data } = response;
+    localStorage.setItem('uvdata', JSON.stringify(data.value));
+    return data.value;
+  }
+  return response;
 };
 
 export const uvIndexMessage = index => {
