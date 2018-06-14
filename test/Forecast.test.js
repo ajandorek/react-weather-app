@@ -24,7 +24,7 @@ it('should render 3 days of weather on button click', () => {
   expect(forecastDays).toBe(3);
 });
 
-it('should render 3 days of weather on button click', () => {
+it('should render the correct information for day 4', () => {
   const wrapper = mount(<Forecast forecastData={data} />);
 
   const dayFour = wrapper
