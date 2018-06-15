@@ -3,7 +3,7 @@ import { setTimeStamp } from './time';
 
 export const renderWeatherImg = img => `wi wi-owm-${img}`;
 
-const serviceUrl = (service, latitude, longitude) =>
+export const serviceUrl = (service, latitude, longitude) =>
   `https://api.openweathermap.org/data/2.5/${service}?lat=${latitude}&lon=${longitude}&appid=${
     process.env.OPENWEATHER_APIKEY
   }&units=imperial`;

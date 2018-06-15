@@ -8,8 +8,8 @@ export const fahrenheitTemp = {
 
 export const celciusTemp = {
   type: TEMP_CONSTS.CELCIUS,
-  unit: 'C',
   value: 33.44,
+  unit: 'C',
 };
 
 export const data = {
