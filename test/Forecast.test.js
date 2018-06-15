@@ -12,7 +12,7 @@ it('should render 5 days of weather on default', () => {
 
   const forecastDays = wrapper.find('div.forecast__display').children().length;
 
-  expect(forecastDays).toBe(5);
+  expect(forecastDays).toEqual(5);
 });
 
 it('should render 3 days of weather on button click', () => {
@@ -21,7 +21,7 @@ it('should render 3 days of weather on button click', () => {
   button.simulate('click');
   const forecastDays = wrapper.find('div.forecast__display').children().length;
 
-  expect(forecastDays).toBe(3);
+  expect(forecastDays).toEqual(3);
 });
 
 it('should render the correct information for day 4', () => {
