@@ -34,10 +34,10 @@ export default class Forecast extends Component {
       .map((day, i) => (
         <ForecastDay
           key={i}
-          dayOfWeek={day.dt}
-          temperature={day.temp.day}
-          weather={day.weather[0].main}
-          icon={day.weather[0].icon}
+          dayOfWeek={day.date}
+          temperature={day.temperature}
+          weather={day.weather}
+          icon={day.icon}
           unit={currentUnit}
           type={type}
         />

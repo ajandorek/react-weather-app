@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { getWeatherInformation, toCelcius, toFahrenheit, TEMP_CONSTS } from '../utils/weather';
-import { checkTimeStamp } from '../utils/time';
-import getLocation from '../utils/location';
+import { getWeather, toCelcius, toFahrenheit, TEMP_CONSTS } from '../frontend/weather';
+import { checkTimeStamp } from '../frontend/time';
+import { getLocation, sendLocation } from '../frontend/location';
 
 import UVIndex from './UVIndex';
 import Forecast from './Forecast';
@@ -16,13 +16,9 @@ class App extends Component {
     this.state = {
       location: false,
       infoInLocalStorage: false,
-      latitude: null,
-      longitude: null,
       weatherData: {},
       forecastData: {},
-      forecastResponse: false,
       weatherResponse: false,
-      uvResponse: false,
       uvData: null,
       temperature: {},
     };
@@ -38,78 +34,38 @@ class App extends Component {
   componentDidMount() {
     if ('geolocation' in navigator) {
       getLocation().then(response => {
+        const { latitude, longitude } = response.coords;
+        sendLocation({ longitude, latitude });
         this.setState({
           location: true,
-          latitude: response.coords.latitude,
-          longitude: response.coords.longitude,
         });
-        this.getCurrentWeather();
-        this.getCurrentForecast();
-        this.getUVIndex();
+        this.getWeatherInformation();
       });
     }
   }
 
-  getCurrentWeather() {
-    const {
-      latitude, longitude, location, infoInLocalStorage,
-    } = this.state;
-    if (location && !infoInLocalStorage) {
-      getWeatherInformation('weather', latitude, longitude).then(response => {
-        this.setState({
-          weatherResponse: true,
-          temperature: response.temperature,
-          weatherData: response.data,
-        });
-      });
-    } else {
-      const weather = JSON.parse(localStorage.getItem('weather'));
+  getWeatherInformation() {
+    const { location, infoInLocalStorage } = this.state;
+    // if (location && !infoInLocalStorage) {
+    getWeather().then(response => {
+      console.log(response.data[0]);
+      const { weather, forecast, uvdata } = response.data[0];
       this.setState({
         weatherResponse: true,
         temperature: weather.temperature,
         weatherData: weather.data,
+        uvData: uvdata,
+        forecastData: forecast,
       });
-    }
-  }
-
-  getCurrentForecast() {
-    const {
-      latitude, longitude, location, infoInLocalStorage,
-    } = this.state;
-    if (location && !infoInLocalStorage) {
-      getWeatherInformation('forecast/daily', latitude, longitude).then(response => {
-        this.setState({
-          forecastResponse: true,
-          forecastData: response,
-        });
-      });
-    } else {
-      const data = JSON.parse(localStorage.getItem('forecast'));
-      this.setState({
-        forecastResponse: true,
-        forecastData: data,
-      });
-    }
-  }
-
-  getUVIndex() {
-    const {
-      latitude, longitude, location, infoInLocalStorage,
-    } = this.state;
-    if (location && !infoInLocalStorage) {
-      getWeatherInformation('uvi', latitude, longitude).then(response => {
-        this.setState({
-          uvData: response,
-          uvResponse: true,
-        });
-      });
-    } else {
-      const data = JSON.parse(localStorage.getItem('uvdata'));
-      this.setState({
-        uvResponse: true,
-        uvData: data,
-      });
-    }
+    });
+    // } else {
+    //   const weather = JSON.parse(localStorage.getItem('weather'));
+    //   this.setState({
+    //     weatherResponse: true,
+    //     temperature: weather.temperature,
+    //     weatherData: weather.data,
+    //   });
+    // }
   }
 
   changeUnit(unit) {
@@ -163,7 +119,7 @@ class App extends Component {
                 render={() => (
                   <Forecast
                     forecastData={forecastData}
-                    apiResponse={forecastResponse}
+                    apiResponse={weatherResponse}
                     currentUnit={temperature.unit}
                     type={temperature.type}
                   />
@@ -171,7 +127,7 @@ class App extends Component {
               />
               <Route
                 path="/uvindex"
-                render={() => <UVIndex uvData={uvData} uvResponse={uvResponse} />}
+                render={() => <UVIndex uvData={uvData} uvResponse={weatherResponse} />}
               />
             </div>
           </div>
