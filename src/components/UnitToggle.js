@@ -1,5 +1,5 @@
 import React from 'react';
-import { TEMP_CONSTS } from '../utils/weather';
+import { TEMP_CONSTS } from '../frontend/weather';
 
 const UnitToggle = props => {
   const { changeUnit } = props;

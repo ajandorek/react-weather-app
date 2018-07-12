@@ -1,5 +1,5 @@
 import React from 'react';
-import { uvIndexMessage } from '../utils/weather';
+import { uvIndexMessage } from '../frontend/weather';
 
 const UVIndex = props => {
   const { uvData, uvResponse } = props;

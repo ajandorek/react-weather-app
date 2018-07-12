@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderWeatherImg } from '../utils/weather';
+import { renderWeatherImg } from '../frontend/weather';
 
 const Weather = props => {
   const {
