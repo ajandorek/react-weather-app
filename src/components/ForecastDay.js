@@ -4,7 +4,6 @@ import { renderWeatherImg, toCelcius, TEMP_CONSTS } from '../frontend/weather.js
 
 export default class ForecastDay extends Component {
   render() {
-    console.log(this.props);
     const {
       dayOfWeek, temperature: value, weather, icon, unit, type,
     } = this.props;
