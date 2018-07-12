@@ -5,6 +5,7 @@ export const renderWeatherImg = img => `wi wi-owm-${img}`;
 
 export const getWeather = async () => {
   const response = await axios.get('http://localhost:3000/api/weather/new');
+  localStorage.setItem('weatherInfo', JSON.stringify(response.data));
   setTimeStamp();
   return response;
 };

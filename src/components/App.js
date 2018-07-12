@@ -46,10 +46,20 @@ class App extends Component {
 
   getWeatherInformation() {
     const { location, infoInLocalStorage } = this.state;
-    // if (location && !infoInLocalStorage) {
-    getWeather().then(response => {
-      console.log(response.data[0]);
-      const { weather, forecast, uvdata } = response.data[0];
+    if (location && !infoInLocalStorage) {
+      getWeather().then(response => {
+        const { weather, forecast, uvdata } = response.data[0];
+        this.setState({
+          weatherResponse: true,
+          temperature: weather.temperature,
+          weatherData: weather.data,
+          uvData: uvdata,
+          forecastData: forecast,
+        });
+      });
+    } else {
+      const data = JSON.parse(localStorage.getItem('weatherInfo'))[0];
+      const { weather, forecast, uvdata } = data;
       this.setState({
         weatherResponse: true,
         temperature: weather.temperature,
@@ -57,15 +67,7 @@ class App extends Component {
         uvData: uvdata,
         forecastData: forecast,
       });
-    });
-    // } else {
-    //   const weather = JSON.parse(localStorage.getItem('weather'));
-    //   this.setState({
-    //     weatherResponse: true,
-    //     temperature: weather.temperature,
-    //     weatherData: weather.data,
-    //   });
-    // }
+    }
   }
 
   changeUnit(unit) {
@@ -83,13 +85,7 @@ class App extends Component {
 
   render() {
     const {
-      weatherData,
-      forecastData,
-      forecastResponse,
-      weatherResponse,
-      uvResponse,
-      uvData,
-      temperature,
+      weatherData, forecastData, weatherResponse, uvData, temperature,
     } = this.state;
     return (
       <div className="container">
