@@ -8,7 +8,11 @@ require('dotenv').config();
 const app = express();
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/Weatherdb');
+if (process.env.NODE_ENV === 'test') {
+  mongoose.connect('mongodb://localhost/WeatherdbTest');
+} else {
+  mongoose.connect('mongodb://localhost/Weatherdb');
+}
 
 app.use(cors());
 app.use(logger('dev'));
