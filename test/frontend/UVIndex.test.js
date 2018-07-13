@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import UVIndex from '../src/components/UVIndex';
+import UVIndex from '../../src/components/UVIndex';
 
 it('should render UVIndex component without crashing', () => {
   shallow(<UVIndex />);
