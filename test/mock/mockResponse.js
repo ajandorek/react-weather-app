@@ -1,6 +1,9 @@
+const WeatherModel = require('../../models/weather');
+const { ObjectId } = require('mongodb');
+
 export const serverResponses = [
   {
-    _id: '5b48d33d7ff9253a9ea846ed',
+    _id: new ObjectId(),
     weather: {
       data: {
         name: 'Ghadamis',
@@ -61,7 +64,7 @@ export const serverResponses = [
     __v: 0,
   },
   {
-    _id: '5b48d34c7ff9253a9ea846ee',
+    _id: new ObjectId(),
     weather: {
       data: {
         name: 'Austin',
@@ -122,7 +125,7 @@ export const serverResponses = [
     __v: 0,
   },
   {
-    _id: '5b48d3757ff9253a9ea846f0',
+    _id: new ObjectId(),
     weather: {
       data: {
         name: 'Yanduo',
@@ -183,3 +186,9 @@ export const serverResponses = [
     __v: 0,
   },
 ];
+
+export const populateWeather = done => {
+  WeatherModel.remove({})
+    .then(() => WeatherModel.insertMany(serverResponses))
+    .then(() => done());
+};
