@@ -1,4 +1,4 @@
-import { TEMP_CONSTS } from '../../src/utils/weather';
+import { TEMP_CONSTS } from '../../src/frontend/weather';
 
 export const fahrenheitTemp = {
   type: TEMP_CONSTS.FAHRENHEIT,

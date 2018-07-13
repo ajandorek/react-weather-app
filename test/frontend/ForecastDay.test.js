@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import ForecastDay from '../src/components/ForecastDay';
-import { data } from './mock/mockForecastDay';
+import ForecastDay from '../../src/components/ForecastDay';
+import { serverResponses } from '../mock/mockResponse';
 
 it('should render ForecastDay component without crashing', () => {
   shallow(<ForecastDay />);
@@ -9,10 +9,11 @@ it('should render ForecastDay component without crashing', () => {
 
 it("should render a day's weather correctly", () => {
   const {
-    dayOfWeek, temperature, weather, icon, unit, type,
-  } = data;
+    date, temperature, weather, icon,
+  } = serverResponses[0].forecast[0];
+  const { unit, type } = serverResponses[0].weather.temperature;
   const wrapper = mount(<ForecastDay
-    dayOfWeek={dayOfWeek}
+    dayOfWeek={date}
     temperature={temperature}
     weather={weather}
     icon={icon}
@@ -25,8 +26,8 @@ it("should render a day's weather correctly", () => {
   const dayWeather = wrapper.find('p.forecastday__subtitle').text();
   const weatherIcon = wrapper.find('i');
 
-  expect(day).toEqual('Tue');
-  expect(temp).toEqual('95.67° F');
-  expect(dayWeather).toEqual('Sunny');
+  expect(day).toEqual('Fri');
+  expect(temp).toEqual('103.05° F');
+  expect(dayWeather).toEqual('Clear');
   expect(weatherIcon.hasClass('wi-owm-01d')).toEqual(true);
 });

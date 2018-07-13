@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import UnitToggle from '../src/components/UnitToggle';
+import UnitToggle from '../../src/components/UnitToggle';
 
 it('renders UnitToggle component without crashing', () => {
   shallow(<UnitToggle />);

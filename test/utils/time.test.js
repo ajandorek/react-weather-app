@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { setTimeStamp, checkTimeStamp } from '../../src/utils/time';
+import { setTimeStamp, checkTimeStamp } from '../../src/frontend/time';
 
 describe('time utility functions', () => {
   it('should create a timestamp and set it in local storage', () => {

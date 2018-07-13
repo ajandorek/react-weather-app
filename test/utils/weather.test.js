@@ -1,24 +1,11 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 import { fahrenheitTemp, celciusTemp } from '../mock/mockWeather';
-import {
-  weatherResponse,
-  weatherRequest,
-  forecastRequest,
-  uviRequest,
-  uviResponse,
-} from '../mock/mockResponse';
 import {
   toCelcius,
   toFahrenheit,
   TEMP_CONSTS,
   uvIndexMessage,
   renderWeatherImg,
-  serviceUrl,
-  getWeatherInformation,
-} from '../../src/utils/weather';
-
-const mock = new MockAdapter(axios);
+} from '../../src/frontend/weather';
 
 describe('weather utility function', () => {
   it('does convert Celcius to Fahrenheit', () => {
@@ -91,61 +78,5 @@ describe('weather utility function', () => {
 
     expect(cloud).toEqual('wi wi-owm-01d');
     expect(smile).toEqual('wi wi-owm-hello');
-  });
-
-  it('creates a url for making an ajax request', () => {
-    const url = serviceUrl('forecast/day', 37, 92);
-    const url2 = serviceUrl('hello', 10, 15);
-
-    expect(url).toEqual(`https://api.openweathermap.org/data/2.5/forecast/day?lat=37&lon=92&appid=${
-      process.env.OPENWEATHER_APIKEY
-    }&units=imperial`);
-
-    expect(url2).toEqual(`https://api.openweathermap.org/data/2.5/hello?lat=10&lon=15&appid=${
-      process.env.OPENWEATHER_APIKEY
-    }&units=imperial`);
-  });
-
-  it('makes an api request for current weather information', done => {
-    const url = serviceUrl('weather', 37, 92);
-
-    mock.onGet(url).reply(200, weatherRequest);
-    getWeatherInformation('weather', 37, 92).then(response => {
-      expect(response).toEqual(weatherResponse);
-      expect(JSON.parse(localStorage.getItem('weather'))).toEqual(weatherResponse);
-      done();
-    });
-  });
-
-  it('makes an api request for forecast information', done => {
-    const url = serviceUrl('forecast/daily', 37, 92);
-
-    mock.onGet(url).reply(200, forecastRequest);
-    getWeatherInformation('forecast/daily', 37, 92).then(response => {
-      expect(response).toEqual(forecastRequest.list);
-      expect(JSON.parse(localStorage.getItem('forecast'))).toEqual(forecastRequest.list);
-      done();
-    });
-  });
-
-  it('makes an api request for UV Index information', done => {
-    const url = serviceUrl('uvi', 37, 92);
-
-    mock.onGet(url).reply(200, uviRequest);
-    getWeatherInformation('uvi', 37, 92).then(response => {
-      expect(response).toEqual(uviResponse);
-      expect(JSON.parse(localStorage.getItem('uvdata'))).toEqual(uviResponse);
-      done();
-    });
-  });
-
-  it('gets a response status of 200 from the api', () => {
-    const weatherUrl = serviceUrl('weather', 37, 92);
-    const forecastUrl = serviceUrl('forecast/daily', 37, 92);
-    const uviUrl = serviceUrl('uvi', 37, 92);
-
-    axios.get(weatherUrl).then(res => expect(res.status).toEqual(200));
-    axios.get(forecastUrl).then(res => expect(res.status).toEqual(200));
-    axios.get(uviUrl).then(res => expect(res.status).toEqual(200));
   });
 });
