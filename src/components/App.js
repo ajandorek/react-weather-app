@@ -32,6 +32,7 @@ class App extends Component {
       infoInLocalStorage: !!localStorage.getItem('weatherInfo'),
     });
   }
+
   componentDidMount() {
     const { infoInLocalStorage } = this.state;
     if ('geolocation' in navigator && !infoInLocalStorage) {
