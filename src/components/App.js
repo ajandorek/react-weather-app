@@ -27,12 +27,14 @@ class App extends Component {
   }
 
   componentWillMount() {
+    checkTimeStamp();
     this.setState({
-      infoInLocalStorage: checkTimeStamp(),
+      infoInLocalStorage: !!localStorage.getItem('weatherInfo'),
     });
   }
   componentDidMount() {
-    if ('geolocation' in navigator) {
+    const { infoInLocalStorage } = this.state;
+    if ('geolocation' in navigator && !infoInLocalStorage) {
       getLocation().then(response => {
         const { latitude, longitude } = response.coords;
         sendLocation({ longitude, latitude });
@@ -41,12 +43,14 @@ class App extends Component {
         });
         this.getWeatherInformation();
       });
+    } else {
+      this.getFromLocalStorage();
     }
   }
 
   getWeatherInformation() {
-    const { location, infoInLocalStorage } = this.state;
-    if (location && !infoInLocalStorage) {
+    const { location } = this.state;
+    if (location) {
       getWeather().then(response => {
         const { weather, forecast, uvdata } = response.data[0];
         this.setState({
@@ -57,17 +61,19 @@ class App extends Component {
           forecastData: forecast,
         });
       });
-    } else {
-      const data = JSON.parse(localStorage.getItem('weatherInfo'))[0];
-      const { weather, forecast, uvdata } = data;
-      this.setState({
-        weatherResponse: true,
-        temperature: weather.temperature,
-        weatherData: weather.data,
-        uvData: uvdata,
-        forecastData: forecast,
-      });
     }
+  }
+
+  getFromLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('weatherInfo'))[0];
+    const { weather, forecast, uvdata } = data;
+    this.setState({
+      weatherResponse: true,
+      temperature: weather.temperature,
+      weatherData: weather.data,
+      uvData: uvdata,
+      forecastData: forecast,
+    });
   }
 
   changeUnit(unit) {

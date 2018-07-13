@@ -9,7 +9,7 @@ export const checkTimeStamp = () => {
   const currentTimestamp = moment().unix();
   const timeStamp = localStorage.getItem('timeStamp');
   if (currentTimestamp - timeStamp >= expirationTime) {
-    return false;
+    return localStorage.removeItem('weatherInfo');
   }
   return true;
 };
