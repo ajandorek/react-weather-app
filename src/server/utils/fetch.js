@@ -1,5 +1,5 @@
 const axios = require('axios');
-const serviceUrl = require('../../shared/utils/url');
+const { serviceUrl } = require('../../shared/utils/url');
 
 const getWeatherInformation = async (latitude, longitude) => {
   let currentWeather;
