@@ -5,8 +5,7 @@ const getWeatherInformation = async (latitude, longitude) => {
   let currentWeather;
   let forecast;
   let uvdata;
-  console.log(latitude, longitude);
-  console.log(serviceUrl('weather', latitude, longitude));
+
   await axios.get(serviceUrl('weather', latitude, longitude)).then(response => {
     const { name, weather, main } = response.data;
     currentWeather = {
