@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { setTimeStamp } from './time';
-
-const url =
-  process.env.NODE_ENV === 'production' ? process.env.PROD_API_URL : 'http://localhost:3000';
+import { getAPIURL } from '../shared/utils/url';
 
 export const renderWeatherImg = img => `wi wi-owm-${img}`;
 
 export const getWeather = async () => {
-  const response = await axios.get(`${url}/api/weather/new`);
+  const response = await axios.get(`${getAPIURL}/api/weather/new`);
   localStorage.setItem('weatherInfo', JSON.stringify(response.data));
   setTimeStamp();
   return response;

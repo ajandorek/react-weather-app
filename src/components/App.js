@@ -38,11 +38,12 @@ class App extends Component {
     if ('geolocation' in navigator && !infoInLocalStorage) {
       getLocation().then(response => {
         const { latitude, longitude } = response.coords;
-        sendLocation({ longitude, latitude });
+        sendLocation({ longitude, latitude }).then(() => {
+          this.getWeatherInformation();
+        });
         this.setState({
           location: true,
         });
-        this.getWeatherInformation();
       });
     } else {
       this.getFromLocalStorage();
