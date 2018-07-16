@@ -3,4 +3,7 @@ const serviceUrl = (service, latitude, longitude) =>
     process.env.OPENWEATHER_APIKEY
   }&units=imperial`;
 
-module.exports = serviceUrl;
+const getAPIURL =
+  process.env.NODE_ENV === 'production' ? process.env.PROD_API_URL : 'http://localhost:3000';
+
+module.exports = { serviceUrl, getAPIURL };

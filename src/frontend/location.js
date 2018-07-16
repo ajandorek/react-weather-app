@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-const url =
-  process.env.NODE_ENV === 'production' ? process.env.PROD_API_URL : 'http://localhost:3000';
+import { getAPIURL } from '../shared/utils/url';
 
 export const getLocation = (options = {}) =>
   new Promise((resolve, reject) => {
@@ -10,4 +8,7 @@ export const getLocation = (options = {}) =>
     throw new Error('Unexpected response from geolocation', e);
   });
 
-export const sendLocation = location => axios.post(`${url}/api/weather`, location);
+export const sendLocation = async location => {
+  const response = await axios.post(`${getAPIURL}/api/weather`, location);
+  return response;
+};
