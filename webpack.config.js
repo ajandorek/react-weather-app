@@ -46,7 +46,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        OPENWEATHER_APIKEY: JSON.stringify(process.env.OPENWEATHER_APIKEY),
+        PROD_API_URL: JSON.stringify(process.env.PROD_API_URL),
       },
     }),
   ],

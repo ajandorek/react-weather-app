@@ -10,8 +10,8 @@ const app = express();
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV === 'test') {
   mongoose.connect('mongodb://localhost/WeatherdbTest');
-} else if (process.env.NODE_ENV === 'dev') {
-  mongoose.connect('mongodb://localhost/Weatherdb');
+} else {
+  mongoose.connect(process.env.MONGODB_URI);
 }
 
 app.use(cors());
