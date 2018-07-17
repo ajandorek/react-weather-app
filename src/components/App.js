@@ -53,7 +53,7 @@ class App extends Component {
     const { location } = this.state;
     if (location) {
       getWeather().then(response => {
-        const { weather, forecast, uvdata } = response.data[0];
+        const { weather, forecast, uvdata } = response;
         this.setState({
           weatherResponse: true,
           temperature: weather.temperature,
@@ -66,7 +66,7 @@ class App extends Component {
   }
 
   getFromLocalStorage() {
-    const data = JSON.parse(localStorage.getItem('weatherInfo'))[0];
+    const data = JSON.parse(localStorage.getItem('weatherInfo'));
     const { weather, forecast, uvdata } = data;
     this.setState({
       weatherResponse: true,
