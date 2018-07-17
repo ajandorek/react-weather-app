@@ -45,6 +45,11 @@ module.exports = {
       template: path.join(__dirname, './index.html'),
       favicon: path.join(__dirname, './static/favicon.ico'),
     }),
+    new HtmlWebpackPlugin({
+      filename: '200.html',
+      template: path.join(__dirname, './index.html'),
+      favicon: path.join(__dirname, './static/favicon.ico'),
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         PROD_API_URL: JSON.stringify(process.env.PROD_API_URL),
