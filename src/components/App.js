@@ -24,6 +24,7 @@ class App extends Component {
     };
 
     this.changeUnit = this.changeUnit.bind(this);
+    this.getWeatherInformation = this.getWeatherInformation.bind(this);
   }
 
   componentWillMount() {
@@ -38,9 +39,7 @@ class App extends Component {
     if ('geolocation' in navigator && !infoInLocalStorage) {
       getLocation().then(response => {
         const { latitude, longitude } = response.coords;
-        sendLocation({ longitude, latitude }).then(() => {
-          this.getWeatherInformation();
-        });
+        sendLocation({ longitude, latitude }).then(this.getWeatherInformation);
         this.setState({
           location: true,
         });
