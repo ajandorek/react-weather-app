@@ -6,9 +6,9 @@ export const renderWeatherImg = img => `wi wi-owm-${img}`;
 
 export const getWeather = async () => {
   const response = await axios.get(`${getAPIURL}/api/weather/new`);
-  localStorage.setItem('weatherInfo', JSON.stringify(response.data));
+  localStorage.setItem('weatherInfo', JSON.stringify(response.data[0]));
   setTimeStamp();
-  return response;
+  return response.data[0];
 };
 
 export const uvIndexMessage = index => {
